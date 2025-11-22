@@ -1,12 +1,63 @@
-import React from 'react';
-import { ArrowRight, ShieldCheck, Play } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Download, Globe, Users, Code, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { cn } from '../lib/utils';
+
+// Animated counter component
+const AnimatedCounter: React.FC<{ end: number; suffix?: string; duration?: number }> = ({
+  end,
+  suffix = '',
+  duration = 2000
+}) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+
+      setCount(Math.floor(progress * end));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration]);
+
+  return <span>{count.toLocaleString()}{suffix}</span>;
+};
 
 export const Hero: React.FC = () => {
   return (
     <div className="relative overflow-hidden bg-background min-h-[90vh] flex items-center pt-20">
+      {/* Animated Code Background */}
+      <div className="absolute inset-0 z-0 opacity-5">
+        <div className="absolute top-0 left-0 w-full h-full font-mono text-xs text-primary overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: '100vh', opacity: [0, 0.5, 0] }}
+              transition={{
+                duration: 10 + Math.random() * 10,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+              className="absolute"
+              style={{ left: `${Math.random() * 100}%` }}
+            >
+              {`{ "workflow": "automated", "status": "success" }`}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
       {/* Background Effects */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl z-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] animate-pulse" />
@@ -14,121 +65,112 @@ export const Hero: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="text-center space-y-8 max-w-5xl mx-auto">
 
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="space-y-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="inline-flex items-center gap-2 bg-secondary/50 border border-border px-4 py-1.5 rounded-full text-primary text-sm font-medium backdrop-blur-sm"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-secondary/50 border border-border px-4 py-1.5 rounded-full text-primary text-sm font-medium backdrop-blur-sm"
+            <Code className="w-4 h-4" />
+            <span>100% Open Source • MIT License</span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-foreground leading-[1.1] tracking-tight"
+          >
+            Open-Source AI Tools Transforming{' '}
+            <br className="hidden sm:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-primary">
+              Enterprise Portfolio Management
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+          >
+            Building intelligent automation frameworks that eliminate manual reporting for 200+ portfolio managers worldwide.
+            Free, open-source, and battle-tested in government and enterprise environments.
+          </motion.p>
+
+          {/* Stats Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto py-8"
+          >
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4 hover:border-primary/50 transition-all">
+              <Download className="w-6 h-6 text-primary mx-auto mb-2" />
+              <div className="text-2xl font-bold text-foreground">
+                <AnimatedCounter end={1200} suffix="+" />
+              </div>
+              <div className="text-xs text-muted-foreground">Toolkit Downloads</div>
+            </div>
+
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4 hover:border-primary/50 transition-all">
+              <Globe className="w-6 h-6 text-primary mx-auto mb-2" />
+              <div className="text-2xl font-bold text-foreground">
+                <AnimatedCounter end={45} suffix="+" />
+              </div>
+              <div className="text-xs text-muted-foreground">Countries</div>
+            </div>
+
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4 hover:border-primary/50 transition-all">
+              <Users className="w-6 h-6 text-primary mx-auto mb-2" />
+              <div className="text-2xl font-bold text-foreground">
+                <AnimatedCounter end={200} suffix="+" />
+              </div>
+              <div className="text-xs text-muted-foreground">Active Users</div>
+            </div>
+
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4 hover:border-primary/50 transition-all">
+              <Code className="w-6 h-6 text-primary mx-auto mb-2" />
+              <div className="text-2xl font-bold text-foreground">100%</div>
+              <div className="text-xs text-muted-foreground">Open Source</div>
+            </div>
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link
+              to="/toolkit"
+              className="inline-flex justify-center items-center px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl font-semibold text-lg transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 active:scale-95"
             >
-              <ShieldCheck className="w-4 h-4" />
-              <span>Trusted by Enterprise Leaders</span>
-            </motion.div>
-
-            <h1 className="text-5xl lg:text-7xl font-display font-bold text-foreground leading-[1.1] tracking-tight">
-              Enterprise Portfolio Management <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-primary">
-                That Actually Works
-              </span>
-            </h1>
-
-            <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              AI-powered automation and battle-tested frameworks from experts who have transformed large-scale enterprise delivery.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/toolkit"
-                className="inline-flex justify-center items-center px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-semibold text-lg transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 active:scale-95"
-              >
-                Get the Free AI Toolkit
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <Link
-                to="/services"
-                className="inline-flex justify-center items-center px-8 py-4 bg-secondary border border-border hover:bg-secondary/80 text-secondary-foreground rounded-lg font-semibold text-lg transition-all active:scale-95"
-              >
-                <Play className="w-4 h-4 mr-2 fill-current" />
-                See Real Examples
-              </Link>
-            </div>
-
-            <div className="pt-4 flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-8 h-8 rounded-full bg-muted border-2 border-background flex items-center justify-center text-[10px] font-bold text-muted-foreground">
-                    {i}
-                  </div>
-                ))}
-              </div>
-              <p>Joined by 500+ Portfolio Leaders</p>
-            </div>
+              Get Free Toolkit
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
+            <a
+              href="https://github.com/Erickuby/portfolio-intelligence"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex justify-center items-center px-8 py-4 bg-card hover:bg-muted text-foreground rounded-xl font-semibold text-lg transition-all border border-border active:scale-95"
+            >
+              <Github className="w-5 h-5 mr-2" />
+              View on GitHub
+            </a>
           </motion.div>
 
-          {/* Abstract Visualization */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.7 }}
-            className="hidden lg:block relative"
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="text-sm text-muted-foreground"
           >
-            <div className="relative bg-card/50 border border-border rounded-2xl p-6 backdrop-blur-md shadow-2xl">
-              {/* Decorative header */}
-              <div className="flex items-center gap-2 mb-6 border-b border-border pb-4">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <div className="ml-4 text-xs text-muted-foreground font-mono">portfolio-automation.n8n.json</div>
-              </div>
-
-              {/* Fake Workflow Nodes */}
-              <div className="space-y-6 font-mono text-sm">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center text-secondary-foreground border border-border shadow-lg">
-                    Jira
-                  </div>
-                  <div className="h-0.5 w-12 bg-border relative">
-                    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-background px-1 text-[10px] text-muted-foreground">FETCH</div>
-                  </div>
-                  <div className="w-auto px-4 h-12 rounded-lg bg-primary flex items-center justify-center text-primary-foreground border border-primary/50 shadow-lg shadow-primary/20">
-                    Standardize Data (GPT-4)
-                  </div>
-                </div>
-
-                <div className="w-0.5 h-8 bg-border ml-6"></div>
-
-                <div className="flex items-center gap-4 ml-6">
-                  <div className="w-0.5 h-12 bg-border absolute -left-6 top-0 rounded-bl-lg border-b border-border w-6"></div>
-                  <div className="w-auto px-4 h-12 rounded-lg bg-brand-teal flex items-center justify-center text-white font-bold border border-brand-cyan/50 shadow-lg shadow-brand-teal/20 animate-pulse">
-                    Risk Analysis &gt; 80%
-                  </div>
-                  <div className="h-0.5 w-12 bg-border relative"></div>
-                  <div className="w-12 h-12 rounded-lg bg-yellow-500/20 flex items-center justify-center text-yellow-500 font-bold border border-yellow-500/50 shadow-lg">
-                    PBI
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 bg-background rounded-lg p-4 border border-border">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-green-500 text-xs">● Status: Active</span>
-                  <span className="text-muted-foreground text-xs">Exec Time: 1.2s</span>
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  &gt; Processing 1,402 project items...<br />
-                  &gt; Normalized dependencies across 4 business units...<br />
-                  &gt; <span className="text-brand-cyan">Success: Report generated. 15 hours saved.</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            Join the community of portfolio managers who've automated 15,000+ hours of manual work
+          </motion.p>
 
         </div>
       </div>

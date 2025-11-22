@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-    BookOpen, Clock, Users, Award, Download, CheckCircle2,
+    BookOpen, Clock, Users, Award, CheckCircle2,
     Target, Brain, TrendingUp, Shield, Zap, ArrowRight
 } from 'lucide-react';
 
@@ -221,7 +221,7 @@ export const CourseSyllabus: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <div className="flex justify-center">
                         <Link
                             to="/contact?service=course"
                             className="px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl transition-all shadow-lg hover:shadow-primary/25 active:scale-95 inline-flex items-center justify-center gap-2"
@@ -229,14 +229,6 @@ export const CourseSyllabus: React.FC = () => {
                             Enroll Now
                             <ArrowRight className="w-5 h-5" />
                         </Link>
-                        <a
-                            href="/AI_Portfolio_Management_Course_Curriculum.pdf"
-                            download="AI-Portfolio-Management-Course-Curriculum.pdf"
-                            className="px-8 py-4 bg-card hover:bg-muted text-foreground font-bold rounded-xl border border-border transition-all inline-flex items-center justify-center gap-2"
-                        >
-                            <Download className="w-5 h-5" />
-                            Download Syllabus
-                        </a>
                     </div>
                 </motion.div>
 

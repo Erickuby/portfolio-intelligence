@@ -6,6 +6,7 @@ import { About } from './pages/About';
 import { Services } from './pages/Services';
 import { Toolkit } from './pages/Toolkit';
 import { DashboardDemo } from './pages/DashboardDemo';
+import { Methodology } from './pages/Methodology';
 
 import { Privacy } from './pages/Privacy';
 import { Terms } from './pages/Terms';
@@ -25,6 +26,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/methodology" element={<Methodology />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/dashboard-demo" element={<DashboardDemo />} />
           <Route path="/resources" element={<Resources />} />
