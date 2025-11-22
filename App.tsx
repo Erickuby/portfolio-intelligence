@@ -13,7 +13,7 @@ import { Terms } from './pages/Terms';
 import { Affiliate } from './pages/Affiliate';
 
 import { Tools } from './pages/Tools';
-import { Resources } from './pages/Resources';
+import { Blog } from './pages/Blog';
 import { BlogPost } from './pages/BlogPost';
 import { Contact } from './pages/Contact';
 import { CourseSyllabus } from './pages/CourseSyllabus';
@@ -29,7 +29,7 @@ const App: React.FC = () => {
           <Route path="/methodology" element={<Methodology />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/dashboard-demo" element={<DashboardDemo />} />
-          <Route path="/resources" element={<Resources />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/toolkit" element={<Toolkit />} />
           <Route path="/privacy" element={<Privacy />} />

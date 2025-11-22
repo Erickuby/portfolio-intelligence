@@ -19,7 +19,7 @@ A modern, enterprise-grade web application designed to transform traditional por
 - **Home** - Dynamic hero section with stats, problem/solution showcase, and testimonials
 - **Services** - Comprehensive service offerings with interactive ROI calculator
 - **Course Syllabus** - 9-module AI Portfolio Management Masterclass with PDF download
-- **Resources/Blog** - 12 SEO-optimized articles with custom-generated images
+- **Blog** - 12 SEO-optimized articles with custom-generated images
 - **Tools Comparison** - Detailed analysis of portfolio management tools
 - **Dashboard Demo** - Interactive portfolio dashboard preview
 - **Contact** - Service-specific contact forms with routing

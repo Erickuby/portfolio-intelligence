@@ -14,7 +14,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "About", path: "/about" },
   { label: "Services", path: "/services" },
   { label: "Dashboard Demo", path: "/dashboard-demo" },
-  { label: "Resources", path: "/resources" },
+  { label: "Blog", path: "/blog" },
 ];
 
 export const STATS: StatItem[] = [
@@ -428,7 +428,7 @@ Pick your 5. Track them religiously. Act on the signals.
 
 Your executives will thank you.
     `,
-    image: "/blog/metrics.jpg",
+    image: "/blog/portfolio_metrics_dashboard.png",
     author: "Portfolio Intelligence",
     tags: ["KPIs", "Metrics", "Executive Reporting", "Strategy"]
   },
@@ -1006,7 +1006,7 @@ You can have the best analysis in the world, but if you can't communicate it eff
 
 Master stakeholder management, and you'll not only deliver projects—you'll advance your career.
     `,
-    image: "/blog/stakeholder-management.jpg",
+    image: "/blog/stakeholder_executive_dashboard.png",
     author: "Portfolio Intelligence",
     tags: ["Stakeholder Management", "Communication", "Executive Leadership", "Strategy"]
   },
@@ -1317,7 +1317,7 @@ But it's the foundation of everything else.
 
 Invest in data quality first. Everything else gets easier.
     `,
-    image: "/blog/data-quality.jpg",
+    image: "/blog/data_quality_foundation.png",
     author: "Portfolio Intelligence",
     tags: ["Data Quality", "Data Governance", "Portfolio Management", "Best Practices"]
   },
@@ -1616,7 +1616,7 @@ Start small. Prove value. Scale gradually. Adapt constantly.
 
 And remember: The goal isn't to "be Agile." The goal is to deliver value faster.
     `,
-    image: "/blog/scaling-agile.jpg",
+    image: "/blog/scaling_agile_enterprise.png",
     author: "Portfolio Intelligence",
     tags: ["Agile", "SAFe", "Scaling", "Enterprise Transformation"]
   },
@@ -1907,7 +1907,7 @@ Then scale.
 
 Your CFO will thank you. Your team will thank you. Your career will thank you.
     `,
-    image: "/blog/roi-automation.jpg",
+    image: "/blog/roi_automation_infographic.png",
     author: "Portfolio Intelligence",
     tags: ["ROI", "Business Case", "Automation", "Financial Analysis"]
   },

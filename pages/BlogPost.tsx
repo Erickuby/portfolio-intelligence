@@ -33,7 +33,7 @@ export const BlogPost: React.FC = () => {
     }, [post]);
 
     if (!post) {
-        return <Navigate to="/resources" replace />;
+        return <Navigate to="/blog" replace />;
     }
 
     // Simple markdown parser for blog content
@@ -81,7 +81,7 @@ export const BlogPost: React.FC = () => {
 
                 {/* Back Button */}
                 <Link
-                    to="/resources"
+                    to="/blog"
                     className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8 group"
                 >
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

@@ -153,7 +153,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <div>
               <h3 className="font-semibold mb-4">Resources</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li><Link to="/resources" className="hover:text-primary transition-colors">Blog</Link></li>
+                <li><Link to="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
                 <li><Link to="/toolkit" className="hover:text-primary transition-colors">Free Toolkit</Link></li>
                 <li><Link to="/dashboard-demo" className="hover:text-primary transition-colors">Dashboard Demo</Link></li>
                 <li><Link to="/tools" className="hover:text-primary transition-colors">Tool Comparison</Link></li>
