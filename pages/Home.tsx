@@ -3,10 +3,7 @@ import { Hero } from '../components/Hero';
 import { StatsBanner } from '../components/StatsBanner';
 import { LATEST_POSTS, CHART_DATA } from '../constants';
 import {
-  ArrowRight, CheckCircle2, XCircle, Lock, BarChart,
-  Database, Shield, Workflow, Users as UsersIcon, TrendingUp,
-  Target, Brain, Zap, Code, Github, Download, Globe,
-  FileText, Cpu, Cloud, Activity, Eye
+  ArrowRight, CheckCircle2, LayoutDashboard, Shield, Zap, Globe, BarChart3, Users as UsersIcon, Lock, Code, Target, Database, Workflow, Activity, TrendingUp, Brain, XCircle, BarChart, FileText, Github
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
@@ -17,13 +14,42 @@ export const Home: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [role, setRole] = useState('');
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setEmail('');
-      setRole('');
-    }, 3000);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xgvqnwyl", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          role,
+          form_type: 'toolkit_signup'
+        })
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setEmail('');
+          setRole('');
+          setSubmitted(false);
+        }, 5000);
+      } else {
+        console.error("Form submission failed");
+        alert("There was a problem submitting your form. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("There was a problem submitting your form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -92,6 +118,46 @@ export const Home: React.FC = () => {
             </motion.p>
           </div>
 
+          {/* Value Proposition */}
+          <section className="py-24 bg-[#18181B]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid md:grid-cols-3 gap-12">
+                {[
+                  {
+                    icon: <Target className="w-8 h-8 text-brand-orange" />,
+                    title: "Strategic Alignment",
+                    desc: "Ensure every project contributes to your organizational goals with automated scoring models."
+                  },
+                  {
+                    icon: <BarChart3 className="w-8 h-8 text-brand-orange" />,
+                    title: "Data-Driven Decisions",
+                    desc: "Move beyond gut feelings. Use Monte Carlo simulations and EVM to predict outcomes."
+                  },
+                  {
+                    icon: <Shield className="w-8 h-8 text-brand-orange" />,
+                    title: "Risk Mitigation",
+                    desc: "Identify bottlenecks and budget overruns before they become critical issues."
+                  }
+                ].map((feature, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="bg-[#27272A] p-8 rounded-2xl border border-[rgba(251,146,60,0.1)] hover:border-brand-orange/30 transition-all hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(251,146,60,0.15)]"
+                  >
+                    <div className="w-14 h-14 bg-[#3F3F46] rounded-xl flex items-center justify-center mb-6">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-[#FAFAFA] mb-3">{feature.title}</h3>
+                    <p className="text-zinc-400 leading-relaxed">{feature.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
@@ -128,7 +194,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Solution Section - Complete Reframe */}
-      <section className="py-24 bg-secondary/30">
+      <section className="py-24 bg-[#27272A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -154,40 +220,25 @@ export const Home: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Database className="w-10 h-10 text-primary" />,
+                icon: <Database className="w-10 h-10" />,
                 title: "Golden Standard Framework",
                 subtitle: "Data Quality Methodology",
                 desc: "The data quality methodology adopted by 200+ organizations to eliminate manual data chasing",
-                tech: "Markdown docs, JSON schemas, validation scripts",
-                license: "MIT",
-                links: [
-                  { label: "View Documentation", to: "/methodology" },
-                  { label: "Download Templates", to: "/toolkit" }
-                ]
+                link: "/methodology"
               },
               {
-                icon: <Workflow className="w-10 h-10 text-primary" />,
+                icon: <Workflow className="w-10 h-10" />,
                 title: "n8n Automation Library",
                 subtitle: "Pre-built Intelligent Workflows",
                 desc: "Featuring Human-in-the-Loop AI approval, real-time health monitoring, and automated reporting",
-                tech: "n8n, GPT-4 API, webhooks",
-                license: "MIT",
-                links: [
-                  { label: "Explore Workflows", to: "/services" },
-                  { label: "View GitHub Repo", href: "https://github.com/Erickuby/portfolio-intelligence" }
-                ]
+                link: "/services"
               },
               {
-                icon: <Activity className="w-10 h-10 text-primary" />,
+                icon: <Activity className="w-10 h-10" />,
                 title: "Portfolio Health Analyzer",
                 subtitle: "Python Analytics Package",
                 desc: "Python package for advanced portfolio analytics with Power BI integration and predictive risk modeling",
-                tech: "Python, Pandas, Power BI REST API",
-                license: "MIT",
-                links: [
-                  { label: "View Documentation", to: "/toolkit" },
-                  { label: "API Reference", to: "/dashboard-demo" }
-                ]
+                link: "/toolkit"
               }
             ].map((product, i) => (
               <motion.div
@@ -196,47 +247,17 @@ export const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-card p-8 rounded-2xl border border-border hover:border-primary/50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+                className="bg-[#3F3F46] border border-[rgba(251,146,60,0.1)] p-8 rounded-2xl hover:border-brand-orange/50 transition-all group hover:shadow-[0_8px_32px_rgba(251,146,60,0.15)] hover:-translate-y-1"
               >
-                <div className="mb-6 p-4 bg-primary/10 rounded-xl inline-block">{product.icon}</div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">{product.title}</h3>
-                <p className="text-primary font-semibold mb-4 text-sm">{product.subtitle}</p>
-                <p className="text-muted-foreground mb-6 leading-relaxed">{product.desc}</p>
-
-                <div className="space-y-3 mb-6">
-                  {product.links.map((link, idx) => (
-                    link.to ? (
-                      <Link
-                        key={idx}
-                        to={link.to}
-                        className="block text-primary hover:text-primary/80 transition-colors text-sm font-medium flex items-center gap-2"
-                      >
-                        <ArrowRight className="w-4 h-4" />
-                        {link.label}
-                      </Link>
-                    ) : (
-                      <a
-                        key={idx}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block text-primary hover:text-primary/80 transition-colors text-sm font-medium flex items-center gap-2"
-                      >
-                        <ArrowRight className="w-4 h-4" />
-                        {link.label}
-                      </a>
-                    )
-                  ))}
+                <div className="w-14 h-14 bg-[#27272A] rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-orange/10 transition-colors">
+                  <div className="text-brand-orange">{product.icon}</div>
                 </div>
-
-                <div className="pt-4 border-t border-border">
-                  <p className="text-xs text-muted-foreground mb-1">Tech Stack:</p>
-                  <p className="text-xs font-mono text-foreground mb-3">{product.tech}</p>
-                  <div className="inline-flex items-center gap-2 bg-green-500/10 text-green-600 dark:text-green-400 px-3 py-1 rounded-full text-xs font-medium">
-                    <Code className="w-3 h-3" />
-                    License: {product.license}
-                  </div>
-                </div>
+                <h3 className="text-2xl font-bold text-[#FAFAFA] mb-2">{product.title}</h3>
+                <p className="text-brand-orange font-semibold mb-4 text-sm">{product.subtitle}</p>
+                <p className="text-zinc-400 mb-6 leading-relaxed">{product.desc}</p>
+                <Link to={product.link} className="inline-flex items-center text-white font-semibold hover:text-brand-orange transition-colors">
+                  Use Tool <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -244,7 +265,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Impact Metrics Section - Replaces Testimonials */}
-      <section className="py-24 bg-background">
+      <section className="py-24 bg-[#18181B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -253,14 +274,14 @@ export const Home: React.FC = () => {
               viewport={{ once: true }}
               className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4"
             >
-              Measurable Impact Across the <span className="text-primary">Community</span>
+              Measurable Impact Across the <span className="text-brand-orange">Community</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-muted-foreground max-w-2xl mx-auto text-lg"
+              className="text-zinc-400 max-w-2xl mx-auto text-lg"
             >
               Real results from portfolio managers who've implemented our open-source tools
             </motion.p>
@@ -279,11 +300,11 @@ export const Home: React.FC = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-card p-6 rounded-2xl border border-border text-center hover:border-primary/50 transition-all"
+                className="bg-[#27272A] p-6 rounded-2xl border border-white/5 text-center hover:border-brand-orange/50 transition-all"
               >
-                <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
+                <div className="text-4xl font-bold text-brand-orange mb-2">{stat.value}</div>
                 <div className="text-sm font-semibold text-foreground mb-1">{stat.label}</div>
-                <div className="text-xs text-muted-foreground">{stat.sublabel}</div>
+                <div className="text-xs text-zinc-400">{stat.sublabel}</div>
               </motion.div>
             ))}
           </div>
@@ -293,30 +314,62 @@ export const Home: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-card border-2 border-primary/20 rounded-2xl p-8 max-w-4xl mx-auto"
+            className="grid gap-6"
           >
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                <UsersIcon className="w-8 h-8 text-primary" />
-              </div>
-              <div className="flex-1">
-                <p className="text-lg text-foreground italic mb-4 leading-relaxed">
-                  "After implementing the Golden Standard Framework and n8n automation workflows, our portfolio team
-                  reduced weekly reporting time from 18 hours to 3 hours, while improving data accuracy from 67% to 94%."
-                </p>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-bold text-foreground">Portfolio Manager</div>
-                    <div className="text-sm text-muted-foreground">UK Government Department</div>
-                  </div>
-                  <div className="inline-flex items-center gap-2 bg-green-500/10 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-full text-xs font-medium">
-                    <CheckCircle2 className="w-4 h-4" />
-                    Verified Implementation
-                  </div>
+            <div className="bg-[#27272A] p-6 rounded-xl border border-white/5">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#3F3F46] flex items-center justify-center text-brand-orange font-bold text-xl">
+                  JD
+                </div>
+                <div>
+                  <div className="font-bold text-[#FAFAFA]">John Davis</div>
+                  <div className="text-sm text-zinc-400">PMO Director</div>
                 </div>
               </div>
+              <p className="text-zinc-300 italic">"The Monte Carlo simulator saved us from a $2M budget overrun on our digital transformation project."</p>
+            </div>
+            <div className="bg-[#27272A] p-6 rounded-xl border border-white/5 translate-x-8">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#3F3F46] flex items-center justify-center text-brand-orange font-bold text-xl">
+                  AS
+                </div>
+                <div>
+                  <div className="font-bold text-[#FAFAFA]">Sarah Chen</div>
+                  <div className="text-sm text-zinc-400">Portfolio Manager</div>
+                </div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-orange/10 text-brand-orange border border-brand-orange/20 ml-auto">
+                  <CheckCircle2 className="w-3 h-3" /> Verified
+                </span>
+              </div>
+              <p className="text-zinc-300 italic">"Finally, a tool that speaks the language of executives but works the way PMs think."</p>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Privacy & Security - Light Section */}
+      <section className="py-24 bg-[#FAFAF9]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-[#09090B] mb-4">Enterprise-Grade Privacy</h2>
+            <p className="text-xl text-[#52525B] max-w-2xl mx-auto">Your data never leaves your browser. No servers, no tracking, no risk.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: <Lock className="w-10 h-10 text-brand-orange" />, title: "Client-Side Execution", desc: "All calculations happen locally on your device." },
+              { icon: <Shield className="w-10 h-10 text-brand-orange" />, title: "No Data Storage", desc: "We don't store, save, or transmit your project data." },
+              { icon: <Code className="w-10 h-10 text-brand-orange" />, title: "Open Source Code", desc: "Audit the code yourself on GitHub for complete transparency." }
+            ].map((item, i) => (
+              <div key={i} className="bg-white p-8 rounded-2xl border border-[rgba(24,24,27,0.1)] text-center hover:shadow-lg transition-shadow">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-orange-50 mb-6">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-bold text-[#09090B] mb-3">{item.title}</h3>
+                <p className="text-[#52525B]">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -465,17 +518,67 @@ export const Home: React.FC = () => {
               <div className="h-[300px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <RechartsBarChart data={CHART_DATA} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="manualGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#EF4444" stopOpacity={0.9} />
+                        <stop offset="100%" stopColor="#DC2626" stopOpacity={0.7} />
+                      </linearGradient>
+                      <linearGradient id="automatedGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#FFD60A" stopOpacity={0.9} />
+                        <stop offset="100%" stopColor="#F59E0B" stopOpacity={0.8} />
+                      </linearGradient>
+                    </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <XAxis
+                      dataKey="name"
+                      stroke="#FAFAFA"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                      tick={{ fill: '#FAFAFA' }}
+                    />
+                    <YAxis
+                      stroke="#FAFAFA"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                      tick={{ fill: '#FAFAFA' }}
+                    />
                     <Tooltip
-                      contentStyle={{ backgroundColor: 'hsl(var(--popover))', borderColor: 'hsl(var(--border))', color: 'hsl(var(--popover-foreground))', borderRadius: '8px' }}
-                      itemStyle={{ color: 'hsl(var(--popover-foreground))' }}
+                      contentStyle={{
+                        backgroundColor: '#18181B',
+                        borderColor: '#FFD60A',
+                        color: '#FAFAFA',
+                        borderRadius: '8px',
+                        border: '1px solid #FFD60A'
+                      }}
+                      itemStyle={{ color: '#FAFAFA' }}
+                      labelStyle={{ color: '#FFD60A', fontWeight: 'bold' }}
                       cursor={{ fill: 'hsl(var(--muted))', opacity: 0.4 }}
                     />
-                    <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                    <Bar dataKey="manual" name="Manual Effort" fill="hsl(var(--destructive))" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="automated" name="After Automation" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    <Legend
+                      wrapperStyle={{ paddingTop: '20px' }}
+                      iconType="circle"
+                      formatter={(value) => <span style={{ color: '#FAFAFA', fontSize: '14px' }}>{value}</span>}
+                    />
+                    <Bar
+                      dataKey="manual"
+                      name="Manual Effort"
+                      fill="url(#manualGradient)"
+                      radius={[8, 8, 0, 0]}
+                      animationBegin={0}
+                      animationDuration={1500}
+                      animationEasing="ease-out"
+                    />
+                    <Bar
+                      dataKey="automated"
+                      name="After Automation"
+                      fill="url(#automatedGradient)"
+                      radius={[8, 8, 0, 0]}
+                      animationBegin={200}
+                      animationDuration={1500}
+                      animationEasing="ease-out"
+                    />
                   </RechartsBarChart>
                 </ResponsiveContainer>
               </div>
@@ -535,6 +638,56 @@ export const Home: React.FC = () => {
                 </p>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tools Showcase */}
+      <section className="py-24 bg-[#27272A]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-[#FAFAFA] mb-4">Professional Grade Tools</h2>
+            <p className="text-xl text-zinc-400 max-w-2xl mx-auto">Everything you need to manage complex portfolios, available for free.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <BarChart3 className="w-10 h-10 text-brand-orange" />,
+                title: "Monte Carlo Simulator",
+                desc: "Predict project outcomes with statistical confidence. Understand risks and opportunities.",
+                link: "/tools/monte-carlo"
+              },
+              {
+                icon: <TrendingUp className="w-10 h-10 text-brand-orange" />,
+                title: "Earned Value Management",
+                desc: "Track project performance against baselines. Identify deviations early and accurately.",
+                link: "/tools/evm"
+              },
+              {
+                icon: <Brain className="w-10 h-10 text-brand-orange" />,
+                title: "AI Prompt Library",
+                desc: "Leverage GPT-4 for instant insights, report generation, and strategic recommendations.",
+                link: "/tools/ai-prompts"
+              }
+            ].map((tool, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-[#3F3F46] p-8 rounded-2xl border border-[rgba(251,146,60,0.1)] hover:border-brand-orange/50 transition-all group hover:shadow-[0_8px_32px_rgba(251,146,60,0.15)] hover:-translate-y-1"
+              >
+                <div className="w-14 h-14 bg-[#27272A] rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-orange/10 transition-colors">
+                  {tool.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-[#FAFAFA] mb-3">{tool.title}</h3>
+                <p className="text-zinc-400 mb-6 leading-relaxed">{tool.desc}</p>
+                <Link to={tool.link} className="inline-flex items-center text-white font-semibold hover:text-brand-orange transition-colors">
+                  Explore Tool <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -616,6 +769,77 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Community Impact */}
+      <section className="py-24 bg-[#18181B] text-white overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop')] opacity-5 bg-cover bg-center mix-blend-overlay"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-4xl font-bold mb-6 text-[#FAFAFA]">Built for the Community,<br />Powered by Intelligence</h2>
+              <p className="text-xl text-zinc-400 mb-8">
+                We believe advanced portfolio management shouldn't be locked behind expensive licenses.
+              </p>
+              <ul className="space-y-4 text-lg text-zinc-300">
+                <li className="flex items-center gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-brand-orange shrink-0" />
+                  <span>Free & Open Source: No hidden costs, ever.</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <UsersIcon className="w-6 h-6 text-brand-orange shrink-0" />
+                  <span>Community-Driven: Shaped by PMO leaders like you.</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Code className="w-6 h-6 text-brand-orange shrink-0" />
+                  <span>Transparent: Audit every line of code on GitHub.</span>
+                </li>
+              </ul>
+              <div className="mt-10">
+                <Link
+                  to="/community"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange hover:bg-brand-orange/90 text-black rounded-full text-lg font-bold transition-all shadow-[0_0_30px_rgba(251,146,60,0.4)] hover:shadow-[0_0_40px_rgba(251,146,60,0.6)]"
+                >
+                  Join the Community <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative"
+            >
+              <div className="bg-[#27272A] p-8 rounded-2xl border border-white/10 shadow-2xl">
+                <h3 className="text-2xl font-bold text-[#FAFAFA] mb-6">Community Growth</h3>
+                <div className="space-y-6">
+                  {[
+                    { label: "GitHub Stars", val: "5,000+", pct: "90%" },
+                    { label: "Active Contributors", val: "150+", pct: "75%" },
+                    { label: "Discord Members", val: "1,200+", pct: "80%" },
+                    { label: "Toolkit Downloads", val: "15,000+", pct: "95%" }
+                  ].map((item, i) => (
+                    <div key={i}>
+                      <div className="flex justify-between mb-2">
+                        <span className="font-semibold text-[#FAFAFA]">{item.label}</span>
+                        <span className="font-bold text-brand-orange">{item.val}</span>
+                      </div>
+                      <div className="h-2 bg-[#3F3F46] rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: item.pct }}
+                          transition={{ duration: 1, delay: 0.5 }}
+                          className="h-full bg-brand-orange rounded-full"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Latest Insights - Enhanced */}
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -667,131 +891,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Final CTA - Redesigned */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-secondary/30 to-background">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-display font-bold text-foreground mb-6"
-            >
-              Join 1,200+ Portfolio Managers Using{' '}
-              <span className="text-primary">Open-Source Automation</span>
-            </motion.h2>
-          </div>
 
-          <div className="grid lg:grid-cols-5 gap-8 items-start">
-            {/* Left Column - Toolkit Contents */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-3 bg-card p-8 rounded-2xl border border-border"
-            >
-              <h3 className="text-2xl font-bold text-foreground mb-2">Get The Complete Toolkit (FREE)</h3>
-              <p className="text-sm text-muted-foreground mb-6">Downloaded 1,200+ times this month</p>
-
-              <div className="space-y-3">
-                {[
-                  "10 n8n Workflow Templates (JSON)",
-                  "25 GPT-4 Prompts for Portfolio Managers",
-                  "Golden Standard Framework Guide (PDF)",
-                  "Python Scripts & Power BI Templates",
-                  "Implementation Roadmap",
-                  "Community Discord Access"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                    <span className="text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Right Column - Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-2"
-            >
-              {submitted ? (
-                <div className="bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 p-6 rounded-xl">
-                  <p className="font-bold text-lg mb-2">Check your inbox!</p>
-                  <p className="text-sm">The toolkit is on its way to {email}.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="space-y-4">
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-2 block">Full Name</label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-2 block">Work Email</label>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                      placeholder="you@company.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-2 block">Role</label>
-                    <select
-                      required
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                    >
-                      <option value="">Select your role</option>
-                      <option value="pm">Project Manager</option>
-                      <option value="portfolio">Portfolio Manager</option>
-                      <option value="pmo">PMO Lead</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full px-6 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg rounded-xl transition-all shadow-lg hover:shadow-primary/25 active:scale-95"
-                  >
-                    Send Me The Toolkit →
-                  </button>
-                  <p className="text-xs text-muted-foreground text-center">
-                    No spam. Unsubscribe anytime. We respect your privacy.
-                  </p>
-                </form>
-              )}
-
-              {/* Trust Indicators */}
-              <div className="mt-6 space-y-3">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Shield className="w-4 h-4" />
-                  <span>Your data is secure and never shared</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Github className="w-4 h-4" />
-                  <a href="https://github.com/Erickuby/portfolio-intelligence" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                    Also available on GitHub - no email required
-                  </a>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Eye className="w-4 h-4" />
-                  <span>Average open rate: 68% (people actually want our emails!)</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
     </>
   );
 };

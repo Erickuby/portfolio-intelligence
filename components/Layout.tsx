@@ -4,6 +4,8 @@ import { Menu, X, BrainCircuit, ArrowRight, LayoutDashboard } from 'lucide-react
 import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_ITEMS } from '../constants';
 import { cn } from '../lib/utils';
+import { ThemeToggle } from './ThemeToggle';
+import { ScrollToTop } from './ScrollToTop';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -38,7 +40,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-brand-teal flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/40 transition-all duration-300">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-brand-cyan flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/40 transition-all duration-300">
                 <BrainCircuit className="text-white w-6 h-6" />
               </div>
               <div className="flex flex-col">
@@ -74,16 +76,18 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   )}
                 </Link>
               ))}
+              <ThemeToggle />
               <Link
                 to="/toolkit"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 flex items-center gap-2 active:scale-95"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-orange hover:shadow-orange-lg flex items-center gap-2 active:scale-95"
               >
                 Get Toolkit <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center gap-4">
+              <ThemeToggle />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="text-muted-foreground hover:text-foreground focus:outline-none p-2"
@@ -134,6 +138,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <main className="flex-grow pt-20">
         {children}
       </main>
+      <ScrollToTop />
 
       {/* Footer */}
       <footer className="bg-card border-t border-border pt-16 pb-8">

@@ -61,7 +61,7 @@ const SkillBar: React.FC<{ skill: string; level: number }> = ({ skill, level }) 
                initial={{ width: 0 }}
                animate={{ width: isVisible ? `${level}%` : 0 }}
                transition={{ duration: 1, ease: "easeOut" }}
-               className="h-full bg-gradient-to-r from-brand-teal to-primary rounded-full"
+               className="h-full bg-gradient-to-r from-accent to-primary rounded-full"
             />
          </div>
       </motion.div>
@@ -196,7 +196,7 @@ export const About: React.FC = () => {
                      </div>
 
                      {/* Impact Metrics Card */}
-                     <div className="bg-gradient-to-br from-primary/10 to-brand-teal/10 border border-primary/20 rounded-2xl p-6">
+                     <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-6">
                         <h3 className="text-lg font-bold text-foreground mb-4">Community Impact</h3>
                         <div className="space-y-4">
                            {[
@@ -443,7 +443,7 @@ export const About: React.FC = () => {
                               transition={{ delay: i * 0.05 }}
                               className="flex items-start gap-4 bg-card border border-border rounded-xl p-4 hover:border-primary/50 transition-all"
                            >
-                              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                              <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mb-6 text-primary">
                                  <span className="text-xs font-bold text-primary">{cert.badge}</span>
                               </div>
                               <div className="flex-1">
@@ -549,7 +549,7 @@ export const About: React.FC = () => {
                         viewport={{ once: true }}
                         className={`flex ${phase.align === 'center' ? 'justify-center' : phase.align === 'right' ? 'justify-end' : 'justify-start'}`}
                      >
-                        <div className={`${phase.align === 'center' ? 'max-w-4xl' : 'max-w-2xl'} ${phase.align === 'center' ? 'bg-gradient-to-r from-primary/10 to-brand-teal/10 border-2 border-primary/30' : 'bg-card border border-border'} rounded-2xl p-8`}>
+                        <div className={`${phase.align === 'center' ? 'max-w-4xl' : 'max-w-2xl'} ${phase.align === 'center' ? 'bg-gradient-to-r from-primary/10 to-accent/10 border-2 border-primary/30' : 'bg-card border border-border'} rounded-2xl p-8`}>
                            <div className="flex items-center gap-4 mb-4">
                               <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg">
                                  {phase.step}
@@ -961,15 +961,10 @@ export const About: React.FC = () => {
                </div>
 
                <div className="flex flex-wrap gap-4 justify-center mt-12">
-                  <a
-                     href="https://github.com/Erickuby"
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-semibold transition-all"
-                  >
-                     <Github className="w-4 h-4" />
-                     Join GitHub Organization
-                  </a>
+                  <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-xs font-medium">
+                     <CheckCircle2 className="w-4 h-4" />
+                     Verified Implementation
+                  </div>
                   <Link
                      to="/toolkit"
                      className="inline-flex items-center gap-2 px-6 py-3 bg-card hover:bg-muted text-foreground rounded-lg font-semibold border border-border transition-all"

@@ -13,6 +13,13 @@ import { Terms } from './pages/Terms';
 import { Affiliate } from './pages/Affiliate';
 
 import { Tools } from './pages/Tools';
+import { FreeTools } from './pages/FreeTools';
+import { MonteCarlo } from './pages/tools/MonteCarlo';
+import { BudgetBurnRate } from './pages/tools/BudgetBurnRate';
+import { EVMCalculator } from './pages/tools/EVMCalculator';
+import { ThreePointEstimator } from './pages/tools/ThreePointEstimator';
+import { RiskMatrix } from './pages/tools/RiskMatrix';
+import { MeetingCost } from './pages/tools/MeetingCost';
 import { Blog } from './pages/Blog';
 import { BlogPost } from './pages/BlogPost';
 import { Contact } from './pages/Contact';
@@ -28,6 +35,13 @@ const App: React.FC = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/methodology" element={<Methodology />} />
           <Route path="/tools" element={<Tools />} />
+          <Route path="/free-tools" element={<FreeTools />} />
+          <Route path="/tools/monte-carlo" element={<MonteCarlo />} />
+          <Route path="/tools/budget-burn-rate" element={<BudgetBurnRate />} />
+          <Route path="/tools/evm-calculator" element={<EVMCalculator />} />
+          <Route path="/tools/three-point-estimator" element={<ThreePointEstimator />} />
+          <Route path="/tools/risk-matrix" element={<RiskMatrix />} />
+          <Route path="/tools/meeting-cost-calculator" element={<MeetingCost />} />
           <Route path="/dashboard-demo" element={<DashboardDemo />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />

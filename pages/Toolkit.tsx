@@ -7,9 +7,36 @@ export const Toolkit: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', role: 'PM' });
   const [status, setStatus] = useState<'idle' | 'success'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('success');
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xgvqnwyl", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ...formData,
+          form_type: 'toolkit_access'
+        })
+      });
+
+      if (response.ok) {
+        setStatus('success');
+      } else {
+        console.error("Form submission failed");
+        alert("There was a problem submitting your form. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("There was a problem submitting your form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -68,8 +95,8 @@ export const Toolkit: React.FC = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-center"
                 >
-                  <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-2xl font-bold text-foreground mb-2">You're all set!</h3>
                   <p className="text-muted-foreground mb-6">Check your email for the download link.</p>

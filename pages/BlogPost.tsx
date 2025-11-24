@@ -97,9 +97,9 @@ export const BlogPost: React.FC = () => {
                     <div className="flex items-center gap-4 mb-4">
                         <span className={cn(
                             "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider",
-                            post.category === 'Methodology' ? 'bg-blue-500/20 text-blue-600' :
-                                post.category === 'Automation' ? 'bg-purple-500/20 text-purple-600' :
-                                    'bg-green-500/20 text-green-600'
+                            post.category === 'Methodology' ? 'bg-primary/20 text-primary' :
+                                post.category === 'Automation' ? 'bg-accent/20 text-accent' :
+                                    'bg-primary/20 text-primary'
                         )}>
                             {post.category}
                         </span>

@@ -30,23 +30,38 @@ export const Contact: React.FC = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        setSubmitted(true);
-        setIsSubmitting(false);
-
-        // Reset form after 5 seconds
-        setTimeout(() => {
-            setSubmitted(false);
-            setFormData({
-                name: '',
-                email: '',
-                company: '',
-                service: formData.service,
-                message: ''
+        try {
+            const response = await fetch("https://formspree.io/f/xgvqnwyl", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
             });
-        }, 5000);
+
+            if (response.ok) {
+                setSubmitted(true);
+                // Reset form after 5 seconds
+                setTimeout(() => {
+                    setSubmitted(false);
+                    setFormData({
+                        name: '',
+                        email: '',
+                        company: '',
+                        service: formData.service,
+                        message: ''
+                    });
+                }, 5000);
+            } else {
+                console.error("Form submission failed");
+                alert("There was a problem submitting your form. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            alert("There was a problem submitting your form. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -83,9 +98,9 @@ export const Contact: React.FC = () => {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-green-500/10 border border-green-500/20 rounded-2xl p-12 text-center"
+                        className="bg-primary/10 border border-primary/20 rounded-2xl p-12 text-center"
                     >
-                        <CheckCircle2 className="w-16 h-16 text-green-600 dark:text-green-400 mx-auto mb-6" />
+                        <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-6" />
                         <h2 className="text-2xl font-bold text-foreground mb-3">Thank You!</h2>
                         <p className="text-muted-foreground text-lg mb-2">
                             We've received your {formData.service.toLowerCase()}.

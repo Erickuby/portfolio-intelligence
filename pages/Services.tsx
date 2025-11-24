@@ -41,11 +41,11 @@ export const Services: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="max-w-4xl mx-auto bg-card border-2 border-brand-teal/30 rounded-2xl p-8"
+            className="max-w-4xl mx-auto bg-card border-2 border-primary/30 rounded-2xl p-8"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-brand-teal/10 rounded-lg flex items-center justify-center">
-                <Code className="w-6 h-6 text-brand-teal" />
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                <Code className="w-6 h-6 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground">Community-First Philosophy</h2>
             </div>
@@ -60,7 +60,7 @@ export const Services: React.FC = () => {
                 'Knowledge transfer that enables independence'
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-brand-teal shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <span className="text-sm text-foreground">{item}</span>
                 </div>
               ))}
@@ -88,15 +88,15 @@ export const Services: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-card border-2 border-brand-teal rounded-2xl p-8 relative"
+              className="bg-card border-2 border-primary rounded-2xl p-8 relative"
             >
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-teal text-white text-sm font-bold rounded-full">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-sm font-bold rounded-full">
                 FREE FOREVER
               </div>
 
               <div className="flex items-center gap-3 mb-4 mt-2">
-                <div className="w-12 h-12 bg-brand-teal/10 rounded-lg flex items-center justify-center">
-                  <Users className="w-6 h-6 text-brand-teal" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Users className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-foreground">Open-Source Community</h3>
@@ -120,7 +120,7 @@ export const Services: React.FC = () => {
                   'MIT license - use commercially without restriction'
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-brand-teal shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                     <span className="text-sm text-muted-foreground">{item}</span>
                   </div>
                 ))}
@@ -138,7 +138,7 @@ export const Services: React.FC = () => {
 
               <Link
                 to="/toolkit"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-teal hover:bg-brand-teal/90 text-white rounded-lg font-semibold transition-all mb-3"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-semibold transition-all mb-3"
               >
                 Get Free Toolkit
                 <ArrowRight className="w-4 h-4" />
@@ -244,11 +244,11 @@ export const Services: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-card border-2 border-purple-500/50 rounded-2xl p-8"
+              className="bg-card border-2 border-accent/50 rounded-2xl p-8"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center">
-                  <Lightbulb className="w-6 h-6 text-purple-500" />
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                  <Lightbulb className="w-6 h-6 text-accent" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-foreground">Custom Innovation Projects</h3>
@@ -272,7 +272,7 @@ export const Services: React.FC = () => {
                   'Priority feature requests for open-source tools'
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-purple-500 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
                     <span className="text-sm text-muted-foreground">{item}</span>
                   </div>
                 ))}
@@ -289,7 +289,7 @@ export const Services: React.FC = () => {
                 </ul>
               </div>
 
-              <div className="mb-6 p-4 bg-purple-500/5 border border-purple-500/20 rounded-lg">
+              <div className="mb-6 p-4 bg-accent/5 border border-accent/20 rounded-lg">
                 <p className="text-xs font-semibold text-foreground mb-2">Commitment to Community:</p>
                 <ul className="space-y-1 text-xs text-muted-foreground">
                   <li>→ Generic components released as open-source (70-80% typically)</li>
@@ -301,7 +301,7 @@ export const Services: React.FC = () => {
 
               <Link
                 to="/contact?type=innovation"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold transition-all mb-3"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent hover:bg-accent/90 text-accent-foreground rounded-lg font-semibold transition-all mb-3"
               >
                 Discuss Your Project
                 <ArrowRight className="w-4 h-4" />
@@ -509,8 +509,8 @@ export const Services: React.FC = () => {
               viewport={{ once: true }}
               className="bg-card border border-border rounded-2xl p-8 text-center"
             >
-              <div className="w-16 h-16 bg-brand-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Download className="w-8 h-8 text-brand-teal" />
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Download className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">Start with Free Tools</h3>
               <p className="text-sm text-muted-foreground mb-6">
@@ -518,7 +518,7 @@ export const Services: React.FC = () => {
               </p>
               <Link
                 to="/toolkit"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-teal hover:bg-brand-teal/90 text-white rounded-lg font-semibold transition-all w-full mb-3"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-semibold transition-all w-full mb-3"
               >
                 Get Free Toolkit
               </Link>
@@ -569,8 +569,8 @@ export const Services: React.FC = () => {
               transition={{ delay: 0.2 }}
               className="bg-card border border-border rounded-2xl p-8 text-center"
             >
-              <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-8 h-8 text-purple-500" />
+              <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-8 h-8 text-accent" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">Stay Connected</h3>
               <p className="text-sm text-muted-foreground mb-6">
@@ -582,7 +582,7 @@ export const Services: React.FC = () => {
                   placeholder="your@email.com"
                   className="flex-1 px-4 py-3 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 />
-                <button className="px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold transition-all">
+                <button className="px-6 py-3 bg-accent hover:bg-accent/90 text-accent-foreground rounded-lg font-semibold transition-all">
                   Subscribe
                 </button>
               </div>

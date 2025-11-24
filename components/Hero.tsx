@@ -85,7 +85,7 @@ export const Hero: React.FC = () => {
           >
             Open-Source AI Tools Transforming{' '}
             <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-primary">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground to-primary">
               Enterprise Portfolio Management
             </span>
           </motion.h1>

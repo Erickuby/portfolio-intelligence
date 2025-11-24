@@ -38,6 +38,7 @@ export interface BlogPost {
   image?: string;
   author?: string;
   tags?: string[];
+  hasCode?: boolean;
 }
 
 export interface Testimonial {

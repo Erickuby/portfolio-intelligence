@@ -118,15 +118,15 @@ export const Blog: React.FC = () => {
 
     const getCategoryColor = (color: string) => {
         switch (color) {
-            case 'blue': return 'bg-blue-900/30 text-blue-400 border-blue-800';
-            case 'purple': return 'bg-purple-900/30 text-purple-400 border-purple-800';
-            case 'green': return 'bg-emerald-900/30 text-emerald-400 border-emerald-800';
-            default: return 'bg-slate-800 text-slate-400 border-slate-700';
+            case 'blue': return 'bg-primary/20 text-primary border-primary/30';
+            case 'purple': return 'bg-accent/20 text-accent border-accent/30';
+            case 'green': return 'bg-primary/20 text-primary border-primary/30';
+            default: return 'bg-secondary text-muted-foreground border-border';
         }
     };
 
     return (
-        <div className="bg-[#0B1120] min-h-screen pt-20">
+        <div className="bg-background min-h-screen pt-20">
             <section className="py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
@@ -141,7 +141,7 @@ export const Blog: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-lg text-slate-400"
+                            className="text-lg text-muted-foreground"
                         >
                             Strategies, frameworks, and code. Real-world insights from enterprise portfolio management and automation.
                         </motion.p>
@@ -154,7 +154,7 @@ export const Blog: React.FC = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05 }}
-                                className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition-colors group"
+                                className="bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-colors group"
                             >
                                 <div className="mb-4">
                                     <span className={cn(
@@ -165,15 +165,15 @@ export const Blog: React.FC = () => {
                                     </span>
                                 </div>
 
-                                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                                     <Link to={`/blog/${article.id}`}>{article.title}</Link>
                                 </h3>
 
-                                <p className="text-slate-400 text-sm mb-6 line-clamp-3">
+                                <p className="text-muted-foreground text-sm mb-6 line-clamp-3">
                                     {article.excerpt}
                                 </p>
 
-                                <div className="flex items-center justify-between text-xs text-slate-500">
+                                <div className="flex items-center justify-between text-xs text-muted-foreground">
                                     <div className="flex items-center gap-3">
                                         <span className="flex items-center gap-1">
                                             <Calendar className="w-3 h-3" /> {article.date}
@@ -184,8 +184,8 @@ export const Blog: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="mt-4 pt-4 border-t border-slate-800">
-                                    <Link to={`/blog/${article.id}`} className="text-blue-400 text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all">
+                                <div className="mt-4 pt-4 border-t border-border">
+                                    <Link to={`/blog/${article.id}`} className="text-primary text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all">
                                         Read more <ArrowRight className="w-3 h-3" />
                                     </Link>
                                 </div>
